@@ -19,7 +19,7 @@ class Carrinho {
     }
 
     getData(elemento) {
-        var linhaDoItem = $(elemento).parents('[item-id]')
+        var linhaDoItem = $(elemento).parents('[item-id]');
         var itemId = $(linhaDoItem).attr('item-id');
         var novaQtde = $(linhaDoItem).find('input').val();
 
@@ -35,7 +35,13 @@ class Carrinho {
             type: 'POST',
             contentType: 'application/json',
             data: JSON.stringify(data)
-        })
+        }).done(function (response) {
+
+            let itemPedido = response.itempedido;
+            let linhaDoItem = $('[item-id=' + itemPedido.id + ']');
+            linhaDoItem.find('input').val(itemPedido.quantidade);
+        
+        });
 
     }
 
